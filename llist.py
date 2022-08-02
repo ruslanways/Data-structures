@@ -3,11 +3,14 @@ This module offer LinkedList implementation in Python.
 """
 
 
+from typing import Any
+
+
 class Node:
     """
     This class allows to create nodes for future LinkedList.
     """
-    def __init__(self, data=None, next: "Node" = None):
+    def __init__(self, data: Any = None, next: "Node" = None):
         self.data = data
         self.next = next
 
@@ -34,13 +37,15 @@ class LinkedList:
 
     def add(self, node: Node, position="end"):
         """
-        'position' argument only to be 'start', 'end' or integer between 0 and self.__length
+        'position' argument only to be 'start',
+        'end' or integer between 0 and self.__length
         """
         if position not in ("start", "end") and not (
             type(position) == int and 0 <= position <= self.__length
         ):
             raise ValueError(
-                f"\n'position' argument only to be 'start', 'end' or integer between 0 and {self.__length}"
+                f"\n'position' argument only to be 'start', 'end' "
+                f"or integer between 0 and {self.__length}"
             )
         if not isinstance(node, Node):
             raise TypeError("'node' must be a Node instance only.")
@@ -48,12 +53,12 @@ class LinkedList:
         if not self.__head:
             self.__head = node
         else:
-            if position == "end" or position == self.__length:
+            if position in ("end", self.__length):
                 if self.__tail:
                     node.next = self.__tail.next
                     self.__tail.next = node
                 self.__tail = node
-            elif position == "start" or position == 0:
+            elif position in ("start", 0):
                 node.next = self.__head
                 self.__head = node
             else:
@@ -65,7 +70,7 @@ class LinkedList:
 
         self.__length += 1
 
-        print(f"Added one node.\nLlist length is {self.length}.")
+        print(f"Added one node. Llist length is {self.length}.")
 
     def __str__(self) -> str:
         """
@@ -95,7 +100,7 @@ class LinkedList:
 
 
 def main():
-    
+
     node = Node("a")
     node1 = Node("b")
     node2 = Node("c")
@@ -121,7 +126,7 @@ def main():
 
     print(llist.length)
 
-    llist.add(Node('new_data'), 2)
+    llist.add(Node('new_data'), 5)
 
     print(llist)
 
